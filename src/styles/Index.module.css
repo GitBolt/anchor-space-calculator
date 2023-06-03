@@ -1,0 +1,34 @@
+.headText {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 50px;
+    line-height: 61px;
+    color: #FFFFFF;
+
+}
+
+.subText {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 30px;
+    line-height: 36px;
+    text-align: center;
+    color: #504F7B;
+}
+
+.flexDown {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow: column;
+    gap: 20px;
+}
+
+.flexRow {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
