@@ -43,14 +43,14 @@ export default function Home() {
     <>
       <DefaultHead />
 
-      <div style={{ marginTop: "50px" }} className={styles.flexDown}>
+      <div style={{ marginTop: "30px" }} className={styles.flexDown}>
         <h1 className={styles.headText}>Anchor Space Calculator</h1>
         <h2 className={styles.subText}>Paste your Anchor Account Structure Rust Code to Get its Space Requirements.</h2>
 
 
         <div className={styles.flexRow} style={{
-          marginTop: "20px",
           alignItems: "start",
+          marginTop:"30px"
         }}>
 
           <div className={styles.flexDown}>
@@ -60,8 +60,8 @@ export default function Home() {
               fontSize: "1.6rem"
             }}>Anchor Rust Code</p>
             <Editor
-              height="60vh"
-
+              height="70vh" 
+              
               theme="vs-dark"
               width="40rem"
               defaultLanguage="rust"

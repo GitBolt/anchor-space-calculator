@@ -15,7 +15,7 @@ interface EnumObj {
   fields: { [variant: string]: { type?: string } };
 }
 
-const spaceReference: { [type: string]: number } = {
+export const spaceReference: { [type: string]: number } = {
   bool: 1,
   u8: 1,
   i8: 1,

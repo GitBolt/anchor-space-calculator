@@ -30,3 +30,8 @@ a {
   color: inherit;
   text-decoration: none;
 }
+
+.monaco-mouse-cursor-text, .margin-view-overlays, .monaco-editor, .minimap-decorations-layer{
+  background-color: rgb(14, 14, 19) !important;
+}
+
