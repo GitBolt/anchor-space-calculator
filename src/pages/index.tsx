@@ -1,14 +1,44 @@
 import { DefaultHead } from '@/components/DefaultHead'
 import styles from '@/styles/Index.module.css'
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Editor, { DiffEditor, useMonaco, loader } from '@monaco-editor/react';
 import { calculateFieldSpace, getDataStructs } from '@/util/parseAnchorSpace';
+import SpaceTable from '@/components/Table';
+import { Text } from '@chakra-ui/react';
 
 
 export default function Home() {
-  const [code, setCode] = useState(`function add(a, b) {\n  return a + b;\n}'`);
-  const [theme, setTheme] = useState("dark");
+  const [code, setCode] = useState(`
+  #[account]
+  #[derive(Default)]
+  pub struct BankAccount {
+    pub holder: Pubkey,
+    pub holder_name: String,
+    pub balance: f64,
+    pub thread_id: Vec<u8>,
+    pub created_at: i64,
+    pub updated_at: i64,
+}
+  `);
+  const [spaceData, setSpaceData] = useState<any>();
 
+
+  useEffect(() => {
+    setData(code)
+  }, [])
+
+  const setData = (code: string) => {
+    setCode(code)
+    const structsData = getDataStructs(code)
+    console.log(structsData)
+    if (!structsData) {
+      setSpaceData(null)
+      return
+    }
+    const space = calculateFieldSpace(structsData)
+    console.log(space)
+    setSpaceData(space)
+  }
   return (
     <>
       <DefaultHead />
@@ -18,10 +48,17 @@ export default function Home() {
         <h2 className={styles.subText}>Paste your Anchor Account Structure Rust Code to Get its Space Requirements.</h2>
 
 
-        <div className={styles.flexRow} style={{ marginTop: "50px" }}>
+        <div className={styles.flexRow} style={{
+          marginTop: "20px",
+          alignItems: "start",
+        }}>
 
           <div className={styles.flexDown}>
-            <p>Anchor Rust Code</p>
+            <p style={{
+              color: "#4C5273",
+              fontWeight: "600",
+              fontSize: "1.6rem"
+            }}>Anchor Rust Code</p>
             <Editor
               height="60vh"
 
@@ -29,7 +66,7 @@ export default function Home() {
               width="40rem"
               defaultLanguage="rust"
               defaultValue={code}
-              onChange={(value) => setCode(value!)}
+              onChange={(value) => setData(value!)}
             />
 
           </div>
@@ -38,8 +75,13 @@ export default function Home() {
           <div className={styles.flexDown} style={{
             width: "40rem"
           }}>
-            <p>Calculated Space</p>
-            {code && JSON.stringify(calculateFieldSpace(getDataStructs(code)))}
+            <p style={{
+              color: "#4C5273",
+              fontWeight: "600",
+              fontSize: "1.6rem"
+            }}>Calculated Space</p>
+            {spaceData ? <SpaceTable spaceData={spaceData} /> :
+              <Text color="gray.500" fontSize="30px">Paste Valid Anchor Rust Account Struct Code to Get Started</Text>}
           </div>
 
         </div>

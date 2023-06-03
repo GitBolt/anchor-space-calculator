@@ -5,8 +5,12 @@
   padding: 0;
   margin: 0;
   font-family: 'Inter', sans-serif;
+
 }
 
+th, td {
+  border-color: #2D2D41 !important;
+}
 html,
 body {
   max-width: 100vw;
@@ -18,13 +22,11 @@ body {
   background-color: #090A11;
 }
 
+html {
+  background-color: #090A11;
+}
+
 a {
   color: inherit;
   text-decoration: none;
-}
-
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
 }
