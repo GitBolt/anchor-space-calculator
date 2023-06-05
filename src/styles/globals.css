@@ -19,11 +19,11 @@ body {
 }
 
 body {
-  background-color: #090A11;
+  background-color: #090A11 !important;
 }
 
 html {
-  background-color: #090A11;
+  background-color: #090A11 !important;
 }
 
 a {
