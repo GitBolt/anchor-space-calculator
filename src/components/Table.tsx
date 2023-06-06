@@ -102,7 +102,7 @@ const TableComponent: React.FC<{ spaceData: Record<string, SpaceData> }> = ({ sp
 
   return (
     <>
-      <Flex bg="#0E0E17" w="100%" pos="relative" maxH="70vh" overflow="scroll" flexFlow="column" p="10px 20px" rounded="10px">
+      <Flex bg="#0E0E17" w="100%" pos="relative" maxH="70vh" flexFlow="column" p="10px 20px" rounded="10px">
         <Text fontSize="20px" color="#60569E">Space Required</Text>
         <Text fontSize="25px" color="white" fontWeight={800}>{calculateTotalSpace()}</Text>
 
@@ -114,7 +114,7 @@ const TableComponent: React.FC<{ spaceData: Record<string, SpaceData> }> = ({ sp
         <Text fontSize="20px" color="#60569E" mb="10px">Breakdown</Text>
 
 
-        <Box overflow="scroll" flex="1">
+        <Box overflowX="auto" flex="1">
           <Table bg="#161723" variant="simple" colorScheme="purple" rounded="10px">
             <Thead pos="static">
               <Tr pos="static">
