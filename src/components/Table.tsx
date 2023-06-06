@@ -2,17 +2,23 @@ import { spaceReference } from "@/util/parseAnchorSpace";
 import { Table, Thead, Tbody, Tr, Th, Td, Input, useColorModeValue, Flex, Text, Divider, NumberInputField, NumberInput, Box } from "@chakra-ui/react";
 import { useState } from "react";
 
-const TableComponent = ({ spaceData }) => {
-  const [additionalSpace, setAdditionalSpace] = useState({});
+type SpaceData = {
+  type: string;
+  space: number;
+  prefix_space: number;
+};
 
-  const handleAdditionalSpaceChange = (field, value) => {
+const TableComponent: React.FC<{ spaceData: Record<string, SpaceData> }> = ({ spaceData }) => {
+  const [additionalSpace, setAdditionalSpace] = useState<Record<string, number>>({});
+
+  const handleAdditionalSpaceChange = (field: number, value: string) => {
     setAdditionalSpace((prevState) => ({
       ...prevState,
       [field]: Number(value),
     }));
   };
 
-  const renderSpaceValue = ({ type, space, prefix_space }) => {
+  const renderSpaceValue = ({ type, space, prefix_space }: SpaceData) => {
     const additionalSpaceValue = additionalSpace[space] || 0;
 
     if (prefix_space) {
@@ -143,7 +149,7 @@ const TableComponent = ({ spaceData }) => {
                         Not dynamic value
                       </Td> :
 
-                      type.startsWith('[') ?
+                      type.match(/^\[.*;.*\]$/) ?
                         <Td color="gray.500" fontWeight={600} fontStyle="italic">
                           {type.split(";")[0].slice(1)} ({spaceReference[type.split(";")[0].slice(1)]}) * {type.split(";")[1].replace("]", "")}
                         </Td>
