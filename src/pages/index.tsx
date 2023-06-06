@@ -1,7 +1,7 @@
 import { DefaultHead } from '@/components/DefaultHead'
 import styles from '@/styles/Index.module.css'
 import { useEffect, useState } from 'react';
-import Editor, { DiffEditor, useMonaco, loader } from '@monaco-editor/react';
+import Editor from '@monaco-editor/react';
 import { calculateFieldSpace, getDataStructs } from '@/util/parseAnchorSpace';
 import SpaceTable from '@/components/Table';
 import { Text } from '@chakra-ui/react';
@@ -25,6 +25,7 @@ export default function Home() {
 
   useEffect(() => {
     setData(code)
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const setData = (code: string) => {

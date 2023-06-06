@@ -1,5 +1,18 @@
 import { spaceReference } from "@/util/parseAnchorSpace";
-import { Table, Thead, Tbody, Tr, Th, Td, Input, useColorModeValue, Flex, Text, Divider, NumberInputField, NumberInput, Box } from "@chakra-ui/react";
+import {
+  Table,
+  Thead,
+  Tbody,
+  Tr,
+  Th,
+  Td,
+  Flex,
+  Text,
+  Divider,
+  NumberInputField,
+  NumberInput,
+  Box
+} from "@chakra-ui/react";
 import { useState } from "react";
 
 type SpaceData = {

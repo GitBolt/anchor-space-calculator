@@ -24,6 +24,7 @@
     align-items: center;
     flex-flow: column;
     gap: 5px;
+    background-color: #090A11;
 }
 
 .flexRow {
@@ -31,4 +32,5 @@
     justify-content: center;
     align-items: center;
     gap: 20px;
+    background-color: #090A11;
 }
