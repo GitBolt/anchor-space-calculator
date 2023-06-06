@@ -30,13 +30,11 @@ export default function Home() {
   const setData = (code: string) => {
     setCode(code)
     const structsData = getDataStructs(code)
-    console.log(structsData)
     if (!structsData) {
       setSpaceData(null)
       return
     }
     const space = calculateFieldSpace(structsData)
-    console.log(space)
     setSpaceData(space)
   }
   return (

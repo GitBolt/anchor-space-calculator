@@ -39,7 +39,7 @@ export const getDataStructs = (rustCode: string): StructObj => {
 
   while ((structMatch = structRegex.exec(rustCode)) !== null) {
     const structName = structMatch[1];
-    const fields = structMatch[2].trim().split('\n');
+    const fields = structMatch[2].trim().split('\n').map((f) => f.trim()).filter((f) => f.startsWith("pub"))
     const structObj: StructObj = {
       name: structName,
       fields: {},
@@ -47,7 +47,7 @@ export const getDataStructs = (rustCode: string): StructObj => {
 
     for (const field of fields) {
       // @ts-ignore
-      const [_, fieldName, fieldType] = field.trim().match(/pub\s*([\w:]+):\s*([\w<>:]+)\s*,?/);
+      const [_, fieldName, fieldType] = field.match(/(\w+)\s*:\s*([\w<>;\[\]\s]+)/);
       structObj.fields[fieldName] = fieldType;
     }
 
@@ -131,7 +131,7 @@ export const calculateFieldSpace = (structObj: StructObj): { [fieldName: string]
     const fieldType = structObj.fields[fieldName];
     let space: number;
     let prefixSpace: number;
-
+    console.log("Field type: ", fieldType)
     if (fieldType.startsWith('[')) {
       const [arrayType, arraySize] = fieldType.split(';');
       const typeSpace = spaceReference[arrayType.slice(1)];

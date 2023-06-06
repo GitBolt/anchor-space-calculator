@@ -70,13 +70,10 @@ const TableComponent = ({ spaceData }) => {
     let totalBytes = 8;
     Object.values(spaceData).forEach(({ space, prefix_space, type }) => {
       const additionalSpaceValue = additionalSpace[space] || 0;
-      console.log(space, additionalSpaceValue, type)
       if (type.startsWith("Vec<") && additionalSpace) {
         totalBytes += (space * additionalSpaceValue) + prefix_space;
-        console.log(space, additionalSpaceValue, type)
       } else {
         totalBytes += space + additionalSpaceValue + prefix_space;
-        console.log(space, additionalSpaceValue, type)
 
       }
     });
@@ -100,9 +97,9 @@ const TableComponent = ({ spaceData }) => {
 
         <Box overflow="scroll" flex="1">
           <Table bg="#161723" variant="simple" colorScheme="purple" rounded="10px">
-            <Thead>
-              <Tr>
-                <Th color="#599CFF" fontSize="15px">Field</Th>
+            <Thead pos="static">
+              <Tr pos="static">
+                <Th pos="static" color="#599CFF" fontSize="15px">Field</Th>
                 <Th color="#599CFF" fontSize="15px">Type</Th>
                 <Th color="#599CFF" fontSize="15px" minWidth="120px">Space</Th>
                 <Th color="#599CFF" fontSize="15px">Item Size / Note</Th>
@@ -145,10 +142,17 @@ const TableComponent = ({ spaceData }) => {
                       <Td color="gray.600" fontWeight={600} fontStyle="italic">
                         Not dynamic value
                       </Td> :
-                      <Td color="gray.500" fontWeight={600} fontStyle="italic">
-                        Largest value from enum is picked
-                      </Td>
+
+                      type.startsWith('[') ?
+                        <Td color="gray.500" fontWeight={600} fontStyle="italic">
+                          {type.split(";")[0].slice(1)} ({spaceReference[type.split(";")[0].slice(1)]}) * {type.split(";")[1].replace("]", "")}
+                        </Td>
+                        :
+                        <Td color="gray.500" fontWeight={600} fontStyle="italic">
+                          Largest value from enum is picked
+                        </Td>
                   }
+
                 </Tr>
               ))}
             </Tbody>
