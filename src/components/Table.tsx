@@ -140,7 +140,7 @@ const TableComponent: React.FC<{ spaceData: Record<string, SpaceData> }> = ({ sp
         </Flex>
 
         {showCode ? <>
-          <SyntaxHighlighter language="rust" customStyle={{fontSize:"1.3rem", background:'#0E0E17'}}>
+          <SyntaxHighlighter language="rust" customStyle={{fontSize:"1.3rem", filter:"brightness(220%)", background:'rgb(6, 6, 11)'}}>
             {generateRustCodeWithComments()}
           </SyntaxHighlighter>
 
