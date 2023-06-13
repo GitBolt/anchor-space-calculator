@@ -18,7 +18,6 @@ import {
 } from "@chakra-ui/react";
 import { useState } from "react";
 import SyntaxHighlighter from 'react-syntax-highlighter';
-import { androidstudio, dracula, monokai } from "react-syntax-highlighter/dist/esm/styles/hljs";
 
 type SpaceData = {
   type: string;
@@ -141,7 +140,7 @@ const TableComponent: React.FC<{ spaceData: Record<string, SpaceData> }> = ({ sp
         </Flex>
 
         {showCode ? <>
-          <SyntaxHighlighter language="rust" style={androidstudio} customStyle={{fontSize:"1.3rem", background:'#0E0E17'}}>
+          <SyntaxHighlighter language="rust" customStyle={{fontSize:"1.3rem", background:'#0E0E17'}}>
             {generateRustCodeWithComments()}
           </SyntaxHighlighter>
 
