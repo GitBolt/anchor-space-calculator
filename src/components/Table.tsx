@@ -125,7 +125,7 @@ const TableComponent: React.FC<{ spaceData: Record<string, SpaceData> }> = ({ sp
         rustCode += `    + ${space} // ${fieldName}\n`;
       }
     });
-
+    rustCode += "}"
     return rustCode;
 
   };
