@@ -48,7 +48,7 @@ export const getDataStructs = (rustCode: string): StructObj => {
     for (const field of fields) {
       // @ts-ignore
       const [_, fieldName, fieldType] = field.match(/(\w+)\s*:\s*([\w<>;\[\]\s]+)/);
-      structObj.fields[fieldName] = fieldType;
+      structObj.fields[fieldName] = fieldType.trim();
     }
 
     const enumName = Object.values(structObj.fields).find((value) => {

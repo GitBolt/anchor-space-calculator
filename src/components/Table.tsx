@@ -1,4 +1,5 @@
 import { spaceReference } from "@/util/parseAnchorSpace";
+import { CopyIcon } from "@chakra-ui/icons";
 import {
   Table,
   Thead,
@@ -11,7 +12,9 @@ import {
   Divider,
   NumberInputField,
   NumberInput,
-  Box
+  Box,
+  useClipboard,
+  useToast
 } from "@chakra-ui/react";
 import { useState } from "react";
 
@@ -23,13 +26,15 @@ type SpaceData = {
 
 const TableComponent: React.FC<{ spaceData: Record<string, SpaceData> }> = ({ spaceData }) => {
   const [additionalSpace, setAdditionalSpace] = useState<Record<string, number>>({});
-
+  const [parsedSpace, setParsedSpace] = useState<any>()
   const handleAdditionalSpaceChange = (field: number, value: string) => {
     setAdditionalSpace((prevState) => ({
       ...prevState,
       [field]: Number(value),
     }));
   };
+
+  const toast = useToast()
 
   const renderSpaceValue = ({ type, space, prefix_space }: SpaceData) => {
     const additionalSpaceValue = additionalSpace[space] || 0;
@@ -45,7 +50,6 @@ const TableComponent: React.FC<{ spaceData: Record<string, SpaceData> }> = ({ sp
         } else {
           totalSpace += ")";
         }
-
         return totalSpace;
       }
     } else {
@@ -104,7 +108,21 @@ const TableComponent: React.FC<{ spaceData: Record<string, SpaceData> }> = ({ sp
     <>
       <Flex bg="#0E0E17" w="100%" pos="relative" maxH="70vh" flexFlow="column" p="10px 20px" rounded="10px">
         <Text fontSize="20px" color="#60569E">Space Required</Text>
-        <Text fontSize="25px" color="white" fontWeight={800}>{calculateTotalSpace()}</Text>
+
+        <Flex justify="space-between" align="center">
+          <Text fontSize="25px" color="white" fontWeight={800}>{calculateTotalSpace()}</Text>
+          <CopyIcon
+            onClick={() => {
+              navigator.clipboard.writeText(calculateTotalSpace())
+              toast({
+                status: "success",
+                title: "Successfully copied space"
+              })
+            }}
+            color="white" w="2rem" h="2rem" sx={{ cursor: "pointer" }}
+          />
+        </Flex>
+
 
         <Divider borderColor="gray.800" my='10px' />
         <Text fontSize="20px" color="#60569E">Total Byte Space</Text>
@@ -136,7 +154,7 @@ const TableComponent: React.FC<{ spaceData: Record<string, SpaceData> }> = ({ sp
                 </Td>
               </Tr>
               {Object.entries(spaceData).map(([field, { type, space, prefix_space }]) => (
-                <Tr key={field}>
+                <Tr key={field} bg={(type.startsWith("Vec<") || type == "String") ? "#1d1f37" : "transparent"}>
                   <Td color="#8FA1FF" fontWeight={600}>{field}</Td>
                   <Td color="#B84173" fontWeight={600}>{type}</Td>
                   <Td color="#8FA1FF" minWidth="120px">
@@ -146,13 +164,15 @@ const TableComponent: React.FC<{ spaceData: Record<string, SpaceData> }> = ({ sp
                     <NumberInput>
 
                       <NumberInputField
+                        border="1px solid"
+                        borderColor="blue.500"
                         type="number"
                         padding="5px"
+                        min="1"
                         placeholder="Enter amount"
                         onChange={(e) => handleAdditionalSpaceChange(space, e.target.value)}
                         borderBottomWidth="1px"
                         _hover={{ borderBottomWidth: "1px" }}
-                        borderColor="#1D1D2C"
                       />
                     </NumberInput>
 
